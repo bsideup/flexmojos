@@ -24,7 +24,7 @@
   <parent>
     <artifactId>flexmojos-parent</artifactId>
     <groupId>net.flexmojos.oss</groupId>
-    <version>5.0-beta-SNAPSHOT</version>
+    <version>bsideup-5.0-beta-SNAPSHOT</version>
   </parent>
 
   <artifactId>flexmojos-generator</artifactId>

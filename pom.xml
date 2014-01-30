@@ -32,7 +32,7 @@
 
   <groupId>net.flexmojos.oss</groupId>
   <artifactId>flexmojos-parent</artifactId>
-  <version>5.0-beta-SNAPSHOT</version>
+  <version>bsideup-5.0-beta-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>Flexmojos Parent</name>
@@ -712,5 +712,40 @@
       <artifactId>hamcrest-integration</artifactId>
     </dependency>
   </dependencies>
+
+    <repositories>
+        <!-- Required for regular plugin use until moved over to Maven central repo. -->
+        <repository>
+            <id>flex-mojos-repository</id>
+            <url>http://repository.sonatype.org/content/groups/flexgroup/</url>
+            <releases> <enabled>true</enabled> </releases>
+            <snapshots> <enabled>false</enabled> </snapshots>
+        </repository>
+
+        <!-- Required for building plugin from source. -->
+        <repository>
+            <id>flex-mojos-internal-repository</id>
+            <url>http://repository.sonatype.org/content/groups/public/</url>
+            <releases> <enabled>true</enabled> </releases>
+            <snapshots> <enabled>true</enabled> </snapshots>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <!-- Required for regular plugin use until moved over to Maven central repo. -->
+        <pluginRepository>
+            <id>flex-mojos-plugin-repository</id>
+            <url>http://repository.sonatype.org/content/groups/flexgroup/</url>
+            <releases> <enabled>true</enabled> </releases>
+            <snapshots> <enabled>false</enabled> </snapshots>
+        </pluginRepository>
+
+        <!-- Required for building plugin from source. -->
+        <pluginRepository>
+            <id>flex-mojos-internal-plugins-repository</id>
+            <url>http://repository.sonatype.org/content/groups/public/</url>
+            <releases> <enabled>true</enabled> </releases>
+            <snapshots> <enabled>true</enabled> </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 
 </project>
