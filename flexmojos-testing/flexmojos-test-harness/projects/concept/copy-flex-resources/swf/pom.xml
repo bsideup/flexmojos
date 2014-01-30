@@ -45,7 +45,7 @@
                 <version>%{flexmojos.version}</version>
                 <configuration>
                     <rslUrls>
-                        <rsl>rsls/{artifactId}-{version}.{extension}</rsl>
+                        <rsl>rsls/{artifactId}-{version}-{hash}.{extension}</rsl>
                     </rslUrls>
                     <modules>
                         <module>modules/module1.mxml</module>

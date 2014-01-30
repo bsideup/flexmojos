@@ -20,6 +20,10 @@ package net.flexmojos.oss.tests.concept;
 import java.io.File;
 import java.util.zip.ZipFile;
 
+import net.flexmojos.oss.test.FMVerifier;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.io.FileUtils;
+import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -32,7 +36,7 @@ public class CopyMojoTest
         throws Exception
     {
         File testDir = getProject( "/concept/copy-flex-resources" );
-        test( testDir, "install" );
+        FMVerifier appVerifier = test( testDir, "install", "-DconfigurationReport" );
 
         File warFile = new File( testDir, "war/target/copy-war-1.0-SNAPSHOT.war" );
         Assert.assertTrue( warFile.exists(), "War file not found!" );
@@ -41,8 +45,17 @@ public class CopyMojoTest
         Assert.assertNotNull( war.getEntry( "copy-swf-1.0-SNAPSHOT.swf" ), "Swf entry not present at war!" );
         Assert.assertNotNull( war.getEntry( "copy-swf-1.0-SNAPSHOT-module1.swf" ), "Swf entry not present at war!" );
         Assert.assertNotNull( war.getEntry( "copy-swf-1.0-SNAPSHOT-module2.swf" ), "Swf entry not present at war!" );
+
+        Xpp3Dom appConfigReportDOM = getFlexConfigReport(appVerifier, "copy-swf", "1.0-SNAPSHOT");
+        Xpp3Dom rslPath = appConfigReportDOM.getChild("runtime-shared-library-path");
+        
+        File librarySwcFile = new File(rslPath.getChild("path-element").getValue());
+
+        byte[] artifactBytes = FileUtils.readFileToByteArray( librarySwcFile );
+        String hash = DigestUtils.md5Hex(artifactBytes);
+
         Assert.assertNotNull( war.getEntry( "rsls/framework-" +
-                getArtifactVersion(getFlexFrameworkGroupId(), "framework") + ".swf" ),
+                getArtifactVersion(getFlexFrameworkGroupId(), "framework") + "-" + hash + ".swf" ),
                 "Rsl entry not present at war!" );
     }
 
